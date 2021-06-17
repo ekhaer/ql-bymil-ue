@@ -1,58 +1,71 @@
-//4
 function findProbsOfSum(n) {
     let limit = Math.floor(n/2);
     for (let i = 0; i < limit + 1; i++) {
         console.log(String(n - i)+ ',' + String(i))
     }
     let num = limit + 1;
-    // let str = ''
-    console.log(num, "num")
-    return getAll(num, n)
-    // for (let i = num; i > 1; i--) {
-    //     if (num !== 1) {
-    //         num--;
-    //         str += '1,'
-    //         console.log(String(num)+','+str)
-    //     }
-    // }
+    if (n !== 4) {
+        getPossibility1(num, n)
+    }
+    if (n > 3) {
+        getPossibility2(num - 1, n)
+    }
 }
 
-function getAll(num, n) {
-    let str = ''
+function getPossibility2(num, n) {
+    for (let i = num; i > 0; i--) {
+        let res = [];
+        let sum = 0
+        res.push(i);
+        sum = sum + i;
+        while (sum < n) {
+            res.push(1)
+            sum++;
+        }
+    toString(res)
+    }
+}
+
+
+function getPossibility1(num, n) {
     let arr = [];
     let temp = [];
-    let sumTemp = 0;
     for (let i = num; i > 1; i--) {
         arr = []
         temp = []
         if (num !== 1) {
             num--;
-            str += '1'
             arr.push(num)
             arr.push(1)
-            // for (let x = 0; x < arr.length; x++) {
-            //     sumTemp = sumTemp + arr[x];
-            // }
-            // temp = arr[arr.length - 1]
             arr.push(n - (num + 1))
-            console.log(arr, "arr")
-            // return (num, str, 1)
-            // console.log(String(num)+','+str)
-            // return(String(num)+','+str + getAll(num))
+            temp = [...arr].sort();
+            arr.sort();
+            let isEqual = false;
+            for (let i = 0; i < temp.length; i++) {
+                if (temp[i] === arr[i]) {
+                    isEqual = true;
+                } else {
+                    isEqual = false;
+                    break;
+                }
+            }
+            if (isEqual) {
+                toString(temp)
+            }
         }
     }
 }
 
-// function getAll(num) {
-//     let str = ''
-//     for (let i = num; i > 1; i--) {
-//         if (num !== 1) {
-//             num--;
-//             str += '1'
-//             // return (num, str, 1)
-//             console.log(String(num)+','+str)
-//             return(String(num)+','+str + getAll(num))
-//         }
-//     }
-// }
-console.log(findProbsOfSum(4));
+function toString(arr) {
+    let str = '';
+    arr.forEach((el, index) => {
+        if (index === arr.length - 1) {
+            str += el
+        } else {
+            str += el + ',';
+        }
+    });
+    console.log(str);
+}
+
+console.log(findProbsOfSum(5));
