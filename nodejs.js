@@ -4,21 +4,26 @@ function getPrimes(n) {
         (n !== 3) ? arr.push(2, 3) : arr.push(2);
     }
     for (let i = 0; i < n; i++) {
-        let flag = false;
         if (i % 2 !== 0) {
-            for (let x = 3; x < i + 1; x++) {
-                if (i % x !== 0 && i !== x) {
-                    flag = true;
-                } else {
-                    break;
-                }
+            if (isPrime(i)) {
+                arr.push(i)
             }
-        }
-        if (flag) {
-            arr.push(i)
         }
     }
     return arr;
 }
 
-console.log(getPrimes(3))
+function isPrime(num) {
+    let flag = true;
+    for (let x = 3; x < num; x+=2) {
+        if (num % x === 0) {
+            flag = false;
+            break;
+        }
+    }
+    if (flag) {
+        return true;
+    }
+}
+
+console.log(getPrimes(44))
